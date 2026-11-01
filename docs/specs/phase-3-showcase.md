@@ -95,10 +95,26 @@ Overview markdown (what it is, who it's for, what works today — factual).
 - Icons: a small inline SVG icon set (≈20 icons: shield, bolt, globe, lock, cloud-off, scan, doc, receipt, chart,
   paw, map, bell, rocket, star, gamepad, trophy, wand, users, language, sparkle). Unknown icon → sparkle.
 
+## Step E2 — Store availability (owner, 2026-11-01)
+
+Apps are "coming soon" today. Once an app is published, it can be downloaded from Google Play and the Apple App
+Store.
+
+- Add optional `stores: { "googlePlay": "https://play.google.com/store/apps/details?id=…", "appStore":
+  "https://apps.apple.com/…" }` to the schema. Allow only those two URL prefixes.
+- When a store URL is set, show the **official** "Get it on Google Play" / "Download on the App Store" badges
+  (official artwork, following each brand's badge guidelines; no recolouring), linking to the store. Use them as
+  the primary call to action on the slider, the app card and the app page.
+- When no store URL is set, show a clear **"Coming soon to Google Play and the App Store"** label (plain text and
+  icons, not the official badges, which are only for live listings) as the primary state on the slider, cards and
+  app page. Games and apps both use this.
+- The APK version history stays (download and follow each version), as a secondary "Preview builds (APK)" section
+  below the overview. It's hidden when the app has no releases.
+
 ## Step F — App page layout
 
-Cover banner at the top with parallax and the accent colour, then: icon, name, tagline, stage badge and download
-area; the feature cards (pop in on scroll); highlights as chips; the overview; screenshots in phone frames; the
+Cover banner at the top with parallax and the accent colour, then: icon, name, tagline, stage badge and store badges or "Coming soon"
+(with APK previews below); the feature cards (pop in on scroll); highlights as chips; the overview; screenshots in phone frames; the
 roadmap as a mini timeline; the version history. Keep the download button above the fold at 375 px.
 
 ## Acceptance checks
