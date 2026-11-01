@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Odin Group — apps and games</title>
-<meta name="description" content="Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on, with a download for every published version and the changes in it.">
+<meta name="description" content="Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b1b33">
 <link rel="canonical" href="https://www.odingroup.co.za/">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Odin Group">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Odin Group — apps and games">
-<meta property="og:description" content="Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on, with a download for every published version and the changes in it.">
+<meta property="og:description" content="Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on.">
 <meta property="og:url" content="https://www.odingroup.co.za/">
 <meta property="og:image" content="https://www.odingroup.co.za/og.png">
 <meta name="twitter:card" content="summary">
@@ -27,11 +27,17 @@
 </div></header>
 <main id="main">
 
-<section class="hero">
-  <h1>Odin Group</h1>
-  <p>Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on, with a download for every published version and the changes in it.</p>
+<section class="hero bleed">
+  <div class="hero-bg" aria-hidden="true"><span class="orb o1" data-depth="0.25"></span><span class="orb o2" data-depth="0.4"></span><span class="orb o3" data-depth="0.15"></span><span class="stars"></span></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Apps and games, built in South Africa</p>
+    <h1>Odin Group</h1>
+    <p class="lead">Apps and games built in South Africa. Odin Group builds Android apps and games. This site lists everything we are working on.</p>
+    <a class="btn cta" href="#apps-h">Explore apps and games</a>
+  </div>
+  <a class="scroll-cue" href="#apps-h" aria-label="Scroll to apps"><span></span></a>
 </section>
-<section aria-labelledby="apps-h">
+<section aria-labelledby="apps-h" data-reveal>
   <h2 id="apps-h">Apps and games</h2>
   <div class="filters" data-filters hidden role="group" aria-label="Filter">
     <button type="button" data-filter="all" aria-pressed="true">All</button>
@@ -39,8 +45,8 @@
     <button type="button" data-filter="game" aria-pressed="false">Games</button>
   </div>
   <ul class="grid">
-    <li data-type="app"><article class="card">
-        <img src="apps/fawterly/icon.png" alt="" width="72" height="72" loading="lazy">
+    <li data-type="app" data-reveal style="--i:0"><article class="card">
+        <img src="apps/fawterly/icon.png" alt="" width="88" height="88" loading="lazy">
         <div>
           <h3><a href="apps/fawterly/">Fawterly</a></h3>
           <p>Business made easy</p>
@@ -50,8 +56,8 @@
             <span class="badge ">Coming soon</span>
           </div>
         </div>
-      </article></li><li data-type="app"><article class="card">
-        <img src="apps/toolforge/icon.png" alt="" width="72" height="72" loading="lazy">
+      </article></li><li data-type="app" data-reveal style="--i:1"><article class="card">
+        <img src="apps/toolforge/icon.png" alt="" width="88" height="88" loading="lazy">
         <div>
           <h3><a href="apps/toolforge/">ToolForge</a></h3>
           <p>Your documents, kept on your device</p>
@@ -61,8 +67,8 @@
             <span class="badge ">Coming soon</span>
           </div>
         </div>
-      </article></li><li data-type="app"><article class="card">
-        <img src="apps/petriotic/icon.png" alt="" width="72" height="72" loading="lazy">
+      </article></li><li data-type="app" data-reveal style="--i:2"><article class="card">
+        <img src="apps/petriotic/icon.png" alt="" width="88" height="88" loading="lazy">
         <div>
           <h3><a href="apps/petriotic/">Petriotic</a></h3>
           <p>Pet care and lost-pet help</p>
@@ -72,8 +78,8 @@
             <span class="badge ">Coming soon</span>
           </div>
         </div>
-      </article></li><li data-type="game"><article class="card">
-        <img src="apps/wormhole-rider/icon.png" alt="" width="72" height="72" loading="lazy">
+      </article></li><li data-type="game" data-reveal style="--i:3"><article class="card">
+        <img src="apps/wormhole-rider/icon.png" alt="" width="88" height="88" loading="lazy">
         <div>
           <h3><a href="apps/wormhole-rider/">Wormhole Rider</a></h3>
           <p>Ride the tunnel. One thumb.</p>
@@ -86,7 +92,7 @@
       </article></li>
   </ul>
 </section>
-<section aria-labelledby="up-h">
+<section aria-labelledby="up-h" data-reveal>
   <h2 id="up-h">Latest updates</h2>
   <p class="empty">No versions published yet. Each new version will be listed here with its changelog.</p>
 </section>
