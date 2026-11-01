@@ -160,6 +160,7 @@ export function appPage({ site, app }) {
     <h1>${app.name}</h1>
     <p class="tagline">${app.tagline}</p>
     ${badge(app.type === 'game' ? 'Game' : 'App')} ${badge(STATUS_LABEL[app.status])}
+    ${app.website ? html`<p class="sub"><a href="${app.website}" rel="noopener">Visit the ${app.name} website →</a></p>` : ''}
   </div>
 </div>
 <div class="dl">
@@ -181,7 +182,7 @@ ${app.screenshots.length ? html`
   <dt>Platform</dt><dd>Android${app.minAndroid ? ` ${app.minAndroid} or newer` : ''}</dd>
   <dt>Category</dt><dd>${app.category}</dd>
   <dt>Status</dt><dd>${STATUS_LABEL[app.status]}</dd>
-  <dt>Package</dt><dd><code>${app.packageId}</code></dd>
+  ${app.website ? html`<dt>Website</dt><dd><a href="${app.website}" rel="noopener">${app.website.replace(/^https:\/\//, '')}</a></dd>` : ''}
 </dl>
 <h2 id="versions">Version history</h2>
 ${app.releases.length
