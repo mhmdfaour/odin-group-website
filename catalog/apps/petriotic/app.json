@@ -7,6 +7,6 @@
   "description": "A pet-care and lost-pet platform for pet owners, planned first for South Africa.\n\nPlanned first versions cover pet profiles and a health book with vaccination reminders. Lost-pet tools come later.\n\nIt is in early development and not yet available to download.",
   "category": "Lifestyle",
   "status": "in-development",
-  "sourceProject": "D:/Projects/Petriotic",
+  "website": "https://www.petriotic.co.za",
   "order": 3
 }

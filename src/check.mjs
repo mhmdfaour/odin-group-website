@@ -14,8 +14,9 @@ function walk(dir) {
 
 /** Validates the catalogue and the built site. Returns a list of problems (empty = pass). */
 export function check({ catalogDir = DEFAULT_CATALOG, distDir = path.join(ROOT, 'dist') } = {}) {
-  const { site, errors } = loadCatalog(catalogDir);
+  const { site, apps, errors } = loadCatalog(catalogDir);
   const problems = [...errors];
+  const appSites = new Set((apps ?? []).map((a) => a.website).filter(Boolean));
   if (!site || !fs.existsSync(distDir)) {
     if (!fs.existsSync(distDir)) problems.push(`${distDir} does not exist; run npm run build first`);
     return problems;
@@ -57,6 +58,7 @@ export function check({ catalogDir = DEFAULT_CATALOG, distDir = path.join(ROOT, 
       if (url.startsWith(site.url)) url = url.slice(site.url.length) || '/';
       else if (/^https?:\/\//.test(url)) {
         // Outside catalogue text the only external links allowed are APK downloads from this repo's releases.
+        if (appSites.has(url)) continue;
         if (prose.includes(`"${m[1]}"`) && url.startsWith('https://')) continue;
         if (!url.startsWith('https://github.com/mhmdfaour/odin-group-website/releases/download/')) problems.push(`${me}: unexpected external link ${url}`);
         continue;
