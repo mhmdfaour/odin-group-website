@@ -13,7 +13,7 @@
       "phase": { "type": "string", "minLength": 1 },
       "channel": { "enum": ["stable", "beta", "dev"] },
       "changelog": { "type": "string" },
-      "file": { "type": "string", "pattern": "\\.apk$" },
+      "file": { "type": "string", "pattern": "^[A-Za-z0-9._-]+\\.apk$" },
       "tag": { "type": "string", "minLength": 1 },
       "url": { "type": "string", "pattern": "^https://github\\.com/mhmdfaour/odin-group-website/releases/download/.+\\.apk$" },
       "sizeBytes": { "type": "integer", "minimum": 1 },

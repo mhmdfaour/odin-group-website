@@ -49,12 +49,15 @@ export function check({ catalogDir = DEFAULT_CATALOG, distDir = path.join(ROOT, 
     const dupes = [...src.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
     if (new Set(dupes).size !== dupes.length) problems.push(`${me}: duplicate ids`);
 
+    // Links written in catalogue text (descriptions, changelogs) may point to any https site.
+    const prose = [...src.matchAll(/<div class="prose">([\s\S]*?)<\/div>/g)].map((m) => m[1]).join('');
     for (const m of src.matchAll(/\s(?:href|src)="([^"]*)"/g)) {
       let url = m[1].replace(/&amp;/g, '&');
       if (/^(mailto:|tel:|data:)/.test(url)) continue;
       if (url.startsWith(site.url)) url = url.slice(site.url.length) || '/';
       else if (/^https?:\/\//.test(url)) {
-        // The only external links allowed are APK downloads from this repo's releases.
+        // Outside catalogue text the only external links allowed are APK downloads from this repo's releases.
+        if (prose.includes(`"${m[1]}"`) && url.startsWith('https://')) continue;
         if (!url.startsWith('https://github.com/mhmdfaour/odin-group-website/releases/download/')) problems.push(`${me}: unexpected external link ${url}`);
         continue;
       }

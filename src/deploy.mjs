@@ -2,6 +2,14 @@
 import ghpages from 'gh-pages';
 import { build } from './build.mjs';
 import { check } from './check.mjs';
+import { deployProblems } from './lib/guard.mjs';
+import { ROOT } from './lib/catalog.mjs';
+
+const guard = deployProblems(ROOT, { allowBranch: process.argv.includes('--allow-branch') });
+if (guard.length) {
+  console.error(`deploy refused:\n  ${guard.join('\n  ')}`);
+  process.exit(1);
+}
 
 try {
   build();

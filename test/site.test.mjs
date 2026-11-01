@@ -1,6 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import { execFileSync } from 'node:child_process';
+import { deployProblems } from '../src/lib/guard.mjs';
 import path from 'node:path';
 import { build } from '../src/build.mjs';
 import { check } from '../src/check.mjs';
@@ -103,4 +106,57 @@ test('every launch app has icon, valid package id and unique slug', () => {
   assert.deepEqual(errors, []);
   assert.deepEqual(apps.map((a) => a.slug), ['fawterly', 'toolforge', 'petriotic', 'wormhole-rider']);
   assert.equal(new Set(apps.map((a) => a.packageId)).size, apps.length);
+});
+
+test('markdown drops javascript: links and images, keeps https/mailto/relative', () => {
+  const cat = makeCatalog();
+  const file = path.join(cat, 'apps/fawterly/releases.json');
+  const rel = JSON.parse(fs.readFileSync(file, 'utf8'));
+  rel[0].changelog = '[bad](javascript:alert(1)) ![img](javascript:alert(2)) [ok](https://example.com/x) [mail](mailto:a@b.co) [rel](../../install/)';
+  fs.writeFileSync(file, JSON.stringify(rel));
+  const dist = tmp();
+  build({ catalogDir: cat, outDir: dist });
+  const page = read(dist, 'apps/fawterly/index.html');
+  assert.doesNotMatch(page, /javascript:/i);
+  assert.match(page, /href="https:\/\/example\.com\/x"/);
+  assert.match(page, /href="mailto:a@b\.co"/);
+  assert.match(page, /href="\.\.\/\.\.\/install\/"/);
+  assert.deepEqual(check({ catalogDir: cat, distDir: dist }), [], 'https link in a changelog passes check');
+});
+
+test('check still rejects external links outside catalogue text', () => {
+  const cat = makeCatalog();
+  const dist = tmp();
+  build({ catalogDir: cat, outDir: dist });
+  fs.appendFileSync(path.join(dist, 'about/index.html'), '<a href="https://example.com/">x</a>');
+  assert.match(check({ catalogDir: cat, distDir: dist }).join('\n'), /unexpected external link/);
+});
+
+test('release file names must not contain spaces', () => {
+  const cat = makeCatalog({ withRelease: false });
+  fs.writeFileSync(path.join(cat, 'apps/fawterly/releases.json'), JSON.stringify([{ ...FAKE_RELEASE, file: 'Wormhole Rider-0.1.0.apk', url: FAKE_RELEASE.url.replace('Fawterly-0.2.0.apk', 'Wormhole Rider-0.1.0.apk') }]));
+  assert.ok(loadCatalog(cat).errors.length > 0);
+});
+
+test('deploy guard: needs clean tree, main, and HEAD == origin/main; --allow-branch overrides', () => {
+  const sh = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8' });
+  const origin = fs.mkdtempSync(path.join(os.tmpdir(), 'odin-origin-'));
+  sh(origin, 'init', '-q', '--bare', '-b', 'main');
+  const work = fs.mkdtempSync(path.join(os.tmpdir(), 'odin-work-'));
+  sh(work, 'init', '-q', '-b', 'main');
+  sh(work, 'config', 'user.email', 't@t.t'); sh(work, 'config', 'user.name', 't');
+  fs.writeFileSync(path.join(work, 'a.txt'), 'a');
+  sh(work, 'add', '-A'); sh(work, 'commit', '-q', '-m', 'one');
+  sh(work, 'remote', 'add', 'origin', origin);
+  sh(work, 'push', '-q', 'origin', 'main');
+  assert.deepEqual(deployProblems(work), []);
+  fs.writeFileSync(path.join(work, 'b.txt'), 'b');
+  assert.match(deployProblems(work).join(), /not clean/);
+  assert.match(deployProblems(work, { allowBranch: true }).join(), /not clean/);
+  sh(work, 'add', '-A'); sh(work, 'commit', '-q', '-m', 'two');
+  assert.match(deployProblems(work).join(), /HEAD is not equal to origin\/main/);
+  sh(work, 'push', '-q', 'origin', 'main');
+  sh(work, 'checkout', '-q', '-b', 'feature');
+  assert.match(deployProblems(work).join(), /not main/);
+  assert.deepEqual(deployProblems(work, { allowBranch: true }), []);
 });

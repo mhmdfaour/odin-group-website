@@ -5,7 +5,22 @@ import { formatSize, formatDate, STATUS_LABEL, CHANNEL_LABEL } from './format.mj
 import { latestUpdates } from './catalog.mjs';
 
 // Catalogue text is ours, but never let raw HTML through.
-marked.use({ renderer: { html: ({ text }) => esc(text) } });
+// Links and images may only be https, mailto, relative or #anchor URLs.
+export const safeUrl = (href) => (/^(https:|mailto:|#|\/|\.{0,2}\/|[^:]*$)/i.test(String(href).trim()) ? href : null);
+marked.use({
+  renderer: {
+    html: ({ text }) => esc(text),
+    link({ href, title, tokens }) {
+      const text = this.parser.parseInline(tokens);
+      const url = safeUrl(href);
+      return url ? `<a href="${esc(url)}"${title ? ` title="${esc(title)}"` : ''}>${text}</a>` : text;
+    },
+    image({ href, title, text }) {
+      const url = safeUrl(href);
+      return url ? `<img src="${esc(url)}" alt="${esc(text)}"${title ? ` title="${esc(title)}"` : ''}>` : esc(text);
+    },
+  },
+});
 const md = (s) => raw(marked.parse(s, { async: false }));
 
 /**

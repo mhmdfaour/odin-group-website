@@ -4,7 +4,7 @@
   "type": "app",
   "packageId": "za.co.odingroup.toolforge",
   "tagline": "Your documents, kept on your device",
-  "description": "An offline document library. Import PDFs, images, EPUBs and text files, then read, organise and work on them without an internet connection.\n\nToolForge asks for no internet permission. Camera scanning and PDF tools (merge, extract pages, rotate, crop, compress) are planned in later versions.\n\nIt is in early development, so features will change between versions.",
+  "description": "An offline document library. Import PDFs, images, EPUBs and text files, then read, organise and work on them without an internet connection.\n\nRelease builds ask for no internet permission. Camera scanning and PDF tools (merge, extract pages, rotate, crop, compress) are planned in later versions.\n\nIt is in early development, so features will change between versions.",
   "category": "Productivity",
   "status": "in-development",
   "sourceProject": "D:/Projects/ToolForge",
