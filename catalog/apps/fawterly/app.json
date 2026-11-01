@@ -1,0 +1,12 @@
+{
+  "slug": "fawterly",
+  "name": "Fawterly",
+  "type": "app",
+  "packageId": "za.co.odingroup.fawterly",
+  "tagline": "Business made easy",
+  "description": "Quotes, invoices, receipts, supplier bills and expenses for small businesses, in Arabic and English.\n\nFawterly runs on Android and Windows first; iOS and macOS are planned later.\n\nIt is in early development, so features and screens will change between versions.",
+  "category": "Business",
+  "status": "in-development",
+  "sourceProject": "D:/Projects/Fawterly",
+  "order": 1
+}

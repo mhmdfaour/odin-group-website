@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Odin Group app",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "name", "type", "packageId", "tagline", "description", "category", "status", "order"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "type": { "enum": ["app", "game"] },
+    "packageId": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$" },
+    "tagline": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "description": { "type": "string", "minLength": 1 },
+    "category": { "type": "string", "minLength": 1 },
+    "minAndroid": { "type": "string", "pattern": "^\\d+(\\.\\d+)*$" },
+    "status": { "enum": ["in-development", "beta", "released"] },
+    "sourceProject": { "type": "string" },
+    "order": { "type": "integer" }
+  }
+}

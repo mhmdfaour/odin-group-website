@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Odin Group app releases (newest first)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["versionName", "versionCode", "date", "phase", "channel", "changelog", "file", "tag", "url", "sizeBytes", "sha256"],
+    "properties": {
+      "versionName": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+([-+][0-9A-Za-z.-]+)?$" },
+      "versionCode": { "type": "integer", "minimum": 1 },
+      "date": { "type": "string", "format": "date" },
+      "phase": { "type": "string", "minLength": 1 },
+      "channel": { "enum": ["stable", "beta", "dev"] },
+      "changelog": { "type": "string" },
+      "file": { "type": "string", "pattern": "\\.apk$" },
+      "tag": { "type": "string", "minLength": 1 },
+      "url": { "type": "string", "pattern": "^https://github\\.com/mhmdfaour/odin-group-website/releases/download/.+\\.apk$" },
+      "sizeBytes": { "type": "integer", "minimum": 1 },
+      "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+      "minSdk": { "type": "integer" },
+      "targetSdk": { "type": "integer" }
+    }
+  }
+}
