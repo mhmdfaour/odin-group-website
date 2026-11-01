@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Odin Group site",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "tagline", "about", "email", "url"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "tagline": { "type": "string", "minLength": 1 },
+    "about": { "type": "string", "minLength": 1 },
+    "email": { "type": "string", "format": "email" },
+    "url": { "type": "string", "format": "uri" }
+  }
+}

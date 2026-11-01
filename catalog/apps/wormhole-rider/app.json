@@ -1,0 +1,13 @@
+{
+  "slug": "wormhole-rider",
+  "name": "Wormhole Rider",
+  "type": "game",
+  "packageId": "com.odingroup.wormholerider",
+  "tagline": "Ride the tunnel. One thumb.",
+  "description": "A portrait-mode endless runner for Android. A jet flies through a scrolling space tunnel; you swipe to pick one of five lanes and double tap to spend your boost.\n\nThe first map, Aurora Rift, streams endlessly past planets, asteroid fields and crystal formations.\n\nIt is in early development and not yet available to download.",
+  "category": "Arcade",
+  "minAndroid": "8.0",
+  "status": "in-development",
+  "sourceProject": "C:/Users/EIFfa3our/Wormhole Rider",
+  "order": 4
+}

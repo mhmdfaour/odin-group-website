@@ -20,7 +20,7 @@ Steps, stop with a clear error at the first failure:
    `minSdk`, `targetSdk`. `application-debuggable` → channel forced to `dev`. Refuse if this `versionCode` (or
    `versionName`) is already in `releases.json`, with the message "bump the version before publishing". Refuse
    unknown slugs (list the valid ones). Changelog file must be non-empty.
-4. **Release**: `gh release create <tag> <apk renamed to <AppName>-<versionName>.apk> --repo
+4. **Release**: `gh release create <tag> <apk renamed to <AppName>-<versionName>.apk, spaces removed from AppName, e.g. WormholeRider-0.1.0.apk> --repo
    mhmdfaour/odin-group-website --title "<AppName> <versionName> (<phase>)" --notes-file <changelog>`;
    `--prerelease` unless channel is `stable`. Compute SHA-256 and size locally.
 5. **Catalogue**: prepend the entry to `catalog/apps/<slug>/releases.json`, set `app.json.status` to `beta` if it
