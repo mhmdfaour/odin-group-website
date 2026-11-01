@@ -5,7 +5,7 @@ a full overview of every app and game, supplied by the projects themselves. The 
 empty. Read first: `CLAUDE.md`, `docs/PLAN.md`, the current `src/` (PR #3 already added a hero, glass header,
 scroll reveal and light parallax; build on it, don't restart).
 
-Out of scope: `tools/publish.mjs` and `releases.json` (phase 2 owns them, on another branch).
+Out of scope: nothing from phase 2 is merged; its APK publish branch is dropped (owner, 2026-11-01: no APK downloads).
 
 ## Step A — Logo concepts, then stop for the owner's pick
 
@@ -41,13 +41,13 @@ colour tokens into the CSS. Keep a short `docs/brand/README.md` (colours, clear 
 - Directly under the hero: a full-width slider, one slide per app/game (ordered by `order`), auto-advancing every
   6 s, pausing on hover/focus/touch, with swipe on touch, arrow keys, dots and prev/next buttons. Each slide shows
   the app's cover layers moving at different speeds on scroll and pointer move, plus name, tagline, status badge
-  and "View app" / "Download" (or "Coming soon") buttons.
+  and "View app" / store badges (or "Coming soon") buttons.
 - **Popping features**: each slide's 3–4 key features (from `features`, below) pop in one by one as cards (scale
   0.8→1 + fade, 120 ms stagger) when the slide becomes active.
 - Respect `prefers-reduced-motion`: no auto-advance, no parallax, features shown statically. No layout shift, and
   the hero image is preloaded. Vanilla JS only, ≤12 KB unminified for the slider; no libraries.
 - The rest of the home page should feel full: a "What we build" strip (Apps / Games counts plus a one-line pitch
-  each), the app grid with cover thumbnails, "Latest updates" (show "First releases coming soon" when empty), and
+  each), the app grid with cover thumbnails, "Latest updates" (show "First updates coming soon" when empty), and
   an "About Odin Group" band with the logo and contact.
 
 ## Step E — App overviews, supplied by the projects
@@ -108,14 +108,12 @@ Store.
 - When no store URL is set, show a clear **"Coming soon to Google Play and the App Store"** label (plain text and
   icons, not the official badges, which are only for live listings) as the primary state on the slider, cards and
   app page. Games and apps both use this.
-- The APK version history stays (download and follow each version), as a secondary "Preview builds (APK)" section
-  below the overview. It's hidden when the app has no releases.
 
 ## Step F — App page layout
 
 Cover banner at the top with parallax and the accent colour, then: icon, name, tagline, stage badge and store badges or "Coming soon"
-(with APK previews below); the feature cards (pop in on scroll); highlights as chips; the overview; screenshots in phone frames; the
-roadmap as a mini timeline; the version history. Keep the download button above the fold at 375 px.
+the feature cards (pop in on scroll); highlights as chips; the overview; screenshots in phone frames; the
+roadmap as a mini timeline; the "Updates" timeline (Step G). Keep the store badges or "Coming soon" label above the fold at 375 px.
 
 ## Acceptance checks
 
@@ -128,3 +126,18 @@ roadmap as a mini timeline; the version history. Keep the download button above 
 4. No package ids, local paths or other dev details anywhere on the site.
 5. PR to `main` with stills, scores, the drafted listings and the tests run. Don't deploy; the main session deploys
    after the merge.
+
+## Step G — Remove APK downloads (owner, 2026-11-01)
+
+The site no longer offers APK downloads. Apps are downloaded only from Google Play and the App Store (Step E2).
+
+- Remove every APK download UI: the "Download latest APK" button, per-version download links, size, SHA-256 and the
+  copy-SHA button, the `/install/` page and its nav and footer links, and APK wording anywhere.
+- Replace `releases.json` with an **Updates** timeline that projects supply in `odin-listing.md`:
+  `updates: [{ version: "1.2.0", date: 2026-11-01, phase: "Phase 3 — Sales screens", notes: "markdown bullets" }]`,
+  newest first. Store it in `app.json` (schema-checked), import it with `tools/import-listing.mjs`, and show it on
+  the app page as "Updates" with a `#v<version>` anchor per entry. Hide it when there are none.
+- The feeds become `/apps/<slug>/updates.json` and the site-wide `/updates.json` (no file URLs). Remove the old
+  release schema, fixture and tests, and replace them with updates tests.
+- Update `docs/PLAN.md` (decisions, architecture, pages, phases) and `CLAUDE.md` so they no longer mention APKs or
+  GitHub Release assets.
