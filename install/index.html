@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install an APK — Odin Group</title>
+<meta name="description" content="How to install an Odin Group APK on Android, and how to check its SHA-256.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b1b33">
+<link rel="canonical" href="https://www.odingroup.co.za/install/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+<meta property="og:site_name" content="Odin Group">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Install an APK — Odin Group">
+<meta property="og:description" content="How to install an Odin Group APK on Android, and how to check its SHA-256.">
+<meta property="og:url" content="https://www.odingroup.co.za/install/">
+<meta property="og:image" content="https://www.odingroup.co.za/og.png">
+<meta name="twitter:card" content="summary">
+<script src="../site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="bar">
+  <a class="brand" href="../" aria-label="Odin Group home"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13294b"/><path d="M16 6V26M16 9L24 15M16 15L24 21" fill="none" stroke="#f5b942" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="wordmark" viewBox="-1 -1 106 12" role="img" aria-label="Odin Group" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="bevel" stroke-linecap="square"><path transform="translate(0 0)" d="M1 0H7V10H1Z"/><path transform="translate(11 0)" d="M1 0H5L7 2V8L5 10H1Z"/><path transform="translate(22 0)" d="M4 0V10"/><path transform="translate(33 0)" d="M1 10V0L7 10V0"/><path transform="translate(52 0)" d="M7 2L5.5 0H2.5L1 2V8L2.5 10H5.5L7 8V5H4"/><path transform="translate(63 0)" d="M1 10V0H5.5L7 1.5V4L5.5 5.5H1M4.5 5.5L7 10"/><path transform="translate(74 0)" d="M1 0H7V10H1Z"/><path transform="translate(85 0)" d="M1 0V8L3 10H5L7 8V0"/><path transform="translate(96 0)" d="M1 10V0H5.5L7 1.5V4.5L5.5 6H1"/></svg></a>
+  <nav aria-label="Main"><a href="../">Apps</a><a href="../install/" aria-current="page">Install</a><a href="../about/">About</a></nav>
+</div></header>
+<main id="main">
+
+<h1>Install an APK on Android</h1>
+<p>Apps on this site are downloaded as APK files and installed directly, not through Google Play. This takes about a minute.</p>
+<ol class="steps">
+  <li><strong>Download</strong> the APK from the app's page, using your phone's browser. Note the version you chose.</li>
+  <li><strong>Allow installs from your browser.</strong> When Android asks, open <em>Settings</em> and turn on <em>Allow from this source</em> for the browser or file manager you used. You can turn it off again afterwards.</li>
+  <li><strong>Open the file</strong> from your notifications or the Downloads folder and tap <em>Install</em>.</li>
+  <li><strong>Updating:</strong> install the newer APK over the old one. Your data stays, as long as it is the same app and was signed the same way. If Android refuses the update, uninstall the old version first; this removes its data.</li>
+</ol>
+<h2>Check the file (optional)</h2>
+<p>Each version lists a SHA-256 checksum. If it does not match, do not install the file.</p>
+<ul>
+  <li>On Windows, in PowerShell: <code>Get-FileHash .\App.apk -Algorithm SHA256</code></li>
+  <li>On macOS or Linux: <code>shasum -a 256 App.apk</code></li>
+  <li>On Android: a file-manager or hash-checker app that shows SHA-256.</li>
+</ul>
+<h2>Good to know</h2>
+<ul>
+  <li>Builds marked <em>Dev build</em> are debug-signed test versions and may be rough.</li>
+  <li>Android may warn that the app is from an unknown source. That is expected for apps outside Google Play.</li>
+  <li>Problems? Write to <a href="mailto:info@odingroup.co.za">info@odingroup.co.za</a> with the app, version and phone model.</li>
+</ul>
+</main>
+<footer class="site-footer"><div class="inner">
+  <span>© Odin Group</span>
+  <span><a href="../install/">How to install</a> · <a href="mailto:info@odingroup.co.za">info@odingroup.co.za</a></span>
+</div></footer>
+</body>
+</html>
