@@ -87,11 +87,17 @@ export function homePage({ site, apps }) {
   const rel = '';
   const updates = latestUpdates(apps, 5);
   const body = html`
-<section class="hero">
-  <h1>${site.name}</h1>
-  <p>${site.tagline} ${site.about}</p>
+<section class="hero bleed">
+  <div class="hero-bg" aria-hidden="true"><span class="orb o1" data-depth="0.25"></span><span class="orb o2" data-depth="0.4"></span><span class="orb o3" data-depth="0.15"></span><span class="stars"></span></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Apps and games, built in South Africa</p>
+    <h1>${site.name}</h1>
+    <p class="lead">${site.tagline} ${site.about}</p>
+    <a class="btn cta" href="#apps-h">Explore apps and games</a>
+  </div>
+  <a class="scroll-cue" href="#apps-h" aria-label="Scroll to apps"><span></span></a>
 </section>
-<section aria-labelledby="apps-h">
+<section aria-labelledby="apps-h" data-reveal>
   <h2 id="apps-h">Apps and games</h2>
   <div class="filters" data-filters hidden role="group" aria-label="Filter">
     <button type="button" data-filter="all" aria-pressed="true">All</button>
@@ -99,10 +105,10 @@ export function homePage({ site, apps }) {
     <button type="button" data-filter="game" aria-pressed="false">Games</button>
   </div>
   <ul class="grid">
-    ${apps.map((a) => {
+    ${apps.map((a, i) => {
       const latest = a.releases[0];
-      return html`<li data-type="${a.type}"><article class="card">
-        <img src="${rel}apps/${a.slug}/icon.png" alt="" width="72" height="72" loading="lazy">
+      return html`<li data-type="${a.type}" data-reveal style="--i:${i}"><article class="card">
+        <img src="${rel}apps/${a.slug}/icon.png" alt="" width="88" height="88" loading="lazy">
         <div>
           <h3><a href="${rel}apps/${a.slug}/">${a.name}</a></h3>
           <p>${a.tagline}</p>
@@ -116,7 +122,7 @@ export function homePage({ site, apps }) {
     })}
   </ul>
 </section>
-<section aria-labelledby="up-h">
+<section aria-labelledby="up-h" data-reveal>
   <h2 id="up-h">Latest updates</h2>
   ${updates.length
     ? html`<ul class="updates">${updates.map((u) => updateItem(u, rel))}</ul>`
@@ -153,6 +159,8 @@ export function appPage({ site, app }) {
   const rel = '../../';
   const latest = app.releases[0];
   const body = html`
+<section class="app-hero bleed">
+<img class="backdrop" src="icon.png" alt="" aria-hidden="true" data-depth="0.2">
 <p class="crumbs"><a href="${rel}">← All apps and games</a></p>
 <div class="app-head">
   <img src="icon.png" alt="${app.name} icon" width="112" height="112">
@@ -169,22 +177,24 @@ export function appPage({ site, app }) {
       <p class="sub">${formatSize(latest.sizeBytes)} · ${formatDate(latest.date)} · <a href="${rel}install/">How to install</a></p>`
     : html`<p class="soon">Coming soon — no APK published yet</p>`}
 </div>
-<h2>About</h2>
-<div class="prose">${md(app.description)}</div>
+</section>
+<h2 data-reveal>About</h2>
+<div class="prose" data-reveal>${md(app.description)}</div>
+${app.screenshots.length ? '' : html`<div class="showcase" data-reveal aria-hidden="true"><img src="icon.png" alt="" width="160" height="160"></div>`}
 ${app.screenshots.length ? html`
-<h2>Screenshots</h2>
-<div class="gallery" tabindex="0" role="group" aria-label="${app.name} screenshots">
+<h2 data-reveal>Screenshots</h2>
+<div class="gallery" data-reveal tabindex="0" role="group" aria-label="${app.name} screenshots">
   ${app.screenshots.map((s, i) => html`<figure><img src="screenshots/${s}" alt="${app.name} screenshot ${i + 1} of ${app.screenshots.length}" loading="lazy"></figure>`)}
 </div>
 <p class="note">Screenshots are from development builds and use sample data.</p>` : ''}
-<h2>Details</h2>
-<dl class="facts">
+<h2 data-reveal>Details</h2>
+<dl class="facts" data-reveal>
   <dt>Platform</dt><dd>Android${app.minAndroid ? ` ${app.minAndroid} or newer` : ''}</dd>
   <dt>Category</dt><dd>${app.category}</dd>
   <dt>Status</dt><dd>${STATUS_LABEL[app.status]}</dd>
   ${app.website ? html`<dt>Website</dt><dd><a href="${app.website}" rel="noopener">${app.website.replace(/^https:\/\//, '')}</a></dd>` : ''}
 </dl>
-<h2 id="versions">Version history</h2>
+<h2 id="versions" data-reveal>Version history</h2>
 ${app.releases.length
   ? app.releases.map((r) => releaseCard(app, r))
   : html`<p class="empty">No versions published yet. Each version will appear here with its changelog, size and SHA-256.</p>`}`;
